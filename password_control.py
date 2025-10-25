@@ -67,7 +67,8 @@ if st.session_state.password:
             """,
             unsafe_allow_html=True
     )
-    st.success("✅ Şifre panoya kopyalandı!")
+        st.success("✅ Şifre panoya kopyalandı!")
 
 st.markdown("<p style='text-align:center; color:gray; font-size:12px; margin-top:40px;'>by <b>Beyza Yıldırım</b></p>", unsafe_allow_html=True)
+
 
