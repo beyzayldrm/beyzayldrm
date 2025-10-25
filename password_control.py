@@ -1,8 +1,6 @@
 import streamlit as st
 import string
 import random
-import pyperclip
-
 st.set_page_config(page_title="🔐 Şifre Üretici", layout="centered")
 st.markdown("<h1 style='text-align:center; color:#d96b00; font-size:26px;'>🔐 Şifre Üretici</h1>", unsafe_allow_html=True)
 
@@ -57,12 +55,6 @@ if st.session_state.password:
     col1, col2 = st.columns([3, 1])
     with col1:
         st.text_input("", value=st.session_state.password)
-    with col2:
-        if st.button("📋 Şifreyi Kopyala"):
-            try:
-                pyperclip.copy(st.session_state.password)
-                st.success("✅ Şifre panoya kopyalandı!")
-            except:
-                st.warning("⚠️ Tarayıcıda otomatik kopyalama desteklenmiyor.")
 
 st.markdown("<p style='text-align:center; color:gray; font-size:12px; margin-top:40px;'>by <b>Beyza Yıldırım</b></p>", unsafe_allow_html=True)
+
