@@ -53,8 +53,6 @@ if st.session_state.password:
     )
     st.info(st.session_state.strength)
     col1, col2 = st.columns([3, 1])
-    with col1:
-        st.text_input("", value=st.session_state.password)
-
 st.markdown("<p style='text-align:center; color:gray; font-size:12px; margin-top:40px;'>by <b>Beyza Yıldırım</b></p>", unsafe_allow_html=True)
+
 
