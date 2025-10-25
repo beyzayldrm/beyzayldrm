@@ -1,7 +1,7 @@
 import streamlit as st
 import string
 import random
-import json
+import pyperclip
 
 st.set_page_config(page_title="🔐 Şifre Üretici", layout="centered")
 st.markdown("<h1 style='text-align:center; color:#d96b00; font-size:26px;'>🔐 Şifre Üretici</h1>", unsafe_allow_html=True)
@@ -16,7 +16,6 @@ a = st.slider("", min_value=4, max_value=30, value=10)
 
 st.markdown("<h3 style='text-align:left; color:#444; font-size:16px;'>Karakter Seçenekleri:</h3>", unsafe_allow_html=True)
 col1, col2, col3, col4 = st.columns(4)
-
 with col1:
     use_digits = st.checkbox("Rakamlar", value=True)
 with col2:
@@ -55,20 +54,15 @@ if st.session_state.password:
         unsafe_allow_html=True
     )
     st.info(st.session_state.strength)
-
-    
-    if st.button("📋 Şifreyi Kopyala"):
-        safe_pw = json.dumps(st.session_state.password)
-        st.markdown(
-            f"""
-            <script>
-            navigator.clipboard.writeText({safe_pw});
-            </script>
-            """,
-            unsafe_allow_html=True
-    )
-        st.success("✅ Şifre panoya kopyalandı!")
+    col1, col2 = st.columns([3, 1])
+    with col1:
+        st.text_input("", value=st.session_state.password)
+    with col2:
+        if st.button("📋 Şifreyi Kopyala"):
+            try:
+                pyperclip.copy(st.session_state.password)
+                st.success("✅ Şifre panoya kopyalandı!")
+            except:
+                st.warning("⚠️ Tarayıcıda otomatik kopyalama desteklenmiyor.")
 
 st.markdown("<p style='text-align:center; color:gray; font-size:12px; margin-top:40px;'>by <b>Beyza Yıldırım</b></p>", unsafe_allow_html=True)
-
-
