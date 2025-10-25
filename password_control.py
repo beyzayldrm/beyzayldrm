@@ -3,13 +3,14 @@ import string
 import random
 
 st.set_page_config(page_title="🔐 Şifre Üretici", layout="centered")
-st.markdown("<h1 style='text-align:center; color:#d96b00; font-size:26px;'>🔐 Şifre Üretici</h1>",unsafe_allow_html=True)
+st.markdown("<h1 style='text-align:center; color:#d96b00; font-size:26px;'>🔐 Şifre Üretici</h1>", unsafe_allow_html=True)
+
 if "password" not in st.session_state:
     st.session_state.password = ""
 if "strength" not in st.session_state:
     st.session_state.strength = ""
 
-st.markdown("<h3 style='text-align:left; color:#444; font-size:16px;'>Lütfen şifre uzunluğunu ayarlayınız</h3>",unsafe_allow_html=True)
+st.markdown("<h3 style='text-align:left; color:#444; font-size:16px;'>Lütfen şifre uzunluğunu ayarlayınız</h3>", unsafe_allow_html=True)
 a = st.slider("", min_value=4, max_value=30, value=10)
 
 st.markdown("<h3 style='text-align:left; color:#444; font-size:16px;'>Karakter Seçenekleri:</h3>", unsafe_allow_html=True)
@@ -22,7 +23,7 @@ with col2:
 with col3:
     use_symbols = st.checkbox("Semboller", value=False)
 with col4:
-    generate = st.button("🔄 Şifre Oluştur")
+    generate = st.button("🔄 Şifre Oluştur", key="generate_btn")
 
 all_chars = []
 if use_letters:
@@ -37,7 +38,6 @@ if generate:
         st.error("Lütfen en az bir karakter türü seçin!")
     else:
         st.session_state.password = ''.join(random.choice(all_chars) for _ in range(a))
-
         if a < 8:
             st.session_state.strength = "🔴 Şifre çok zayıf"
         elif a < 12:
@@ -46,6 +46,7 @@ if generate:
             st.session_state.strength = "🟢 Şifre güçlü"
         else:
             st.session_state.strength = "💪 Şifre çok güçlü!"
+
 if st.session_state.password:
     st.markdown(
         f"<h4 style='text-align:left; font-size:18px; color:#222;'>🔑 Şifreniz: "
@@ -53,17 +54,16 @@ if st.session_state.password:
         unsafe_allow_html=True
     )
     st.info(st.session_state.strength)
-    if st.button("📋 Şifreyi Kopyala"):
+
+    if st.button("📋 Şifreyi Kopyala", key="copy_btn"):
         st.markdown(
             f"""
             <script>
-            navigator.clipboard.writeText("{st.session_state.password}");
+            navigator.clipboard.writeText({st.session_state.password!r});
             </script>
             """,
             unsafe_allow_html=True
         )
         st.success("✅ Şifre panoya kopyalandı!")
-st.markdown(
-    "<p style='text-align:center; color:gray; font-size:12px; margin-top:40px;'>by <b>Beyza Yıldırım</b></p>",
-    unsafe_allow_html=True
-)
+
+st.markdown("<p style='text-align:center; color:gray; font-size:12px; margin-top:40px;'>by <b>Beyza Yıldırım</b></p>", unsafe_allow_html=True)
